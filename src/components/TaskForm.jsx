@@ -1,4 +1,4 @@
-export default function TaskForm({handleForm, isRunning, time}) {
+export default function TaskForm({handleForm, isRunning}) {
   return (
     <div>
     <span>I will work on </span>
@@ -11,7 +11,6 @@ export default function TaskForm({handleForm, isRunning, time}) {
     <input
       name="duration"
       type="number"
-      value={time.min}
       max={60}
       min={0}
       onChange={handleForm}

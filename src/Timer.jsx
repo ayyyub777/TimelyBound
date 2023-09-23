@@ -67,7 +67,7 @@ export default function Timer({storageData, setStorageData}) {
 
   return (
     <div>
-      <TaskForm handleForm={handleForm} isRunning={isRunning} time={time}/>
+      <TaskForm handleForm={handleForm} isRunning={isRunning}/>
       <TimeDisplay time={time}/>
       <ToggleButton handleTime={handleTime} isRunning={isRunning} taskIsSet={taskIsSet}/>
     </div>
