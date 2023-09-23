@@ -7,27 +7,32 @@ import ToggleButton from "./components/ToggleButton";
 export default function Timer({storageData, setStorageData}) {
   const [time, setTime] = useState({ min: 0, sec: 0 });
   const [isRunning, setIsRunning] = useState(false);
-  const [task, setTask] = useState({activity : "", duration : 0});
+  const [task, setTask] = useState({activity : "", duration : 0, timeLeft : 0});
   const taskIsSet = task.activity !== "" && task.duration > 0;
   const intervalId = useRef();
 
   useEffect(() => {
-    if (taskIsSet && time.sec === 0 && time.min === 0) {
-      console.log("beep beep beep!!!");
-      return () => {
-        clearInterval(intervalId.current);
-      };
-    }
-  }, [taskIsSet, time]);
+    return () => {
+      clearInterval(intervalId.current);
+    };
 
-  const handleTime = (shouldStart) => {
-    if(task.duration === time.min){
-      const updatedStorageData = [...storageData, task];
+  }, []);
+
+  const trackTimer = () => {
+    if (time.sec === 0 && time.min === 0) {
+      console.log("beep beep beep!!!");
+      var updatedStorageData = [...storageData, task];
       localStorage.setItem("tasks", JSON.stringify(updatedStorageData));
       setStorageData(updatedStorageData);
     }
+    
+  }
+  
+
+  const handleTime = (shouldStart) => {
     if (shouldStart && taskIsSet) {
       setIsRunning(true);
+      trackTimer();
       intervalId.current = setInterval(() => {
         updateTime();
       }, 1000);
@@ -67,7 +72,7 @@ export default function Timer({storageData, setStorageData}) {
 
   return (
     <div>
-      <TaskForm handleForm={handleForm} isRunning={isRunning}/>
+      <TaskForm handleForm={handleForm} isRunning={isRunning} time={time}/>
       <TimeDisplay time={time}/>
       <ToggleButton handleTime={handleTime} isRunning={isRunning} taskIsSet={taskIsSet}/>
     </div>
