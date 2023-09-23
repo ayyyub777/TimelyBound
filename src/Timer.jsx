@@ -1,26 +1,32 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function Timer() {
+import TaskForm from "./components/TaskForm";
+import TimeDisplay from "./components/TimeDisplay";
+import ToggleButton from "./components/ToggleButton";
+
+export default function Timer({storageData, setStorageData}) {
   const [time, setTime] = useState({ min: 0, sec: 0 });
   const [isRunning, setIsRunning] = useState(false);
   const [task, setTask] = useState({activity : "", duration : 0});
+  const taskIsSet = task.activity !== "" && task.duration > 0;
   const intervalId = useRef();
 
   useEffect(() => {
-    return () => {
-      clearInterval(intervalId.current);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (time.sec === 0 && time.min === 0) {
-      handleTime(false);
+    if (taskIsSet && time.sec === 0 && time.min === 0) {
       console.log("beep beep beep!!!");
+      return () => {
+        clearInterval(intervalId.current);
+      };
     }
-  }, [time]);
+  }, [taskIsSet, time]);
 
   const handleTime = (shouldStart) => {
-    if (shouldStart) {
+    if(task.duration === time.min){
+      const updatedStorageData = [...storageData, task];
+      localStorage.setItem("tasks", JSON.stringify(updatedStorageData));
+      setStorageData(updatedStorageData);
+    }
+    if (shouldStart && taskIsSet) {
       setIsRunning(true);
       intervalId.current = setInterval(() => {
         updateTime();
@@ -29,7 +35,6 @@ export default function Timer() {
       setIsRunning(false);
       clearInterval(intervalId.current);
     }
-    console.log(task);
   };
 
   const updateTime = () => {
@@ -48,43 +53,23 @@ export default function Timer() {
     });
   };
 
-  const handleDuration = (e) => {
-    setTime({ min: parseInt(e.target.value), sec: 0 });
-    setTask({...task, duration : e.target.value});
-  };
-  const handleActivity = (e) => {
-    setTask({...task, activity : e.target.value});
 
+  const handleForm = (e) => {
+    const { name, value } = e.target;
+    if (name === "activity") {
+      setTask({ ...task, activity: value });
+    } else if (name === "duration") {
+      const duration = parseInt(value);
+      setTime({ min: duration, sec: 0 });
+      setTask({ ...task, duration });
+    }
   };
-
 
   return (
-    <>
-      <div>
-        <span>I will work on </span>
-        <input type="text" list="tasks" placeholder="Give your project a name" onChange={handleActivity}/>
-        <datalist id="tasks">
-          <option>Work on LeetCode problems</option>
-          <option>Read Alchemist</option>
-        </datalist>
-        <span> for </span>
-        <input
-          type="number"
-          value={time.min}
-          max={60}
-          min={0}
-          onChange={handleDuration}
-        />
-        <span> minutes.</span>
-      </div>
-      <div>
-        <div>
-          {String(time.min).padStart(2, "0")} : {String(time.sec).padStart(2, "0")}
-        </div>
-        <button onClick={() => handleTime(!isRunning)}>
-          {isRunning ? "Stop" : "Start"}
-        </button>
-      </div>
-    </>
+    <div>
+      <TaskForm handleForm={handleForm} isRunning={isRunning} time={time}/>
+      <TimeDisplay time={time}/>
+      <ToggleButton handleTime={handleTime} isRunning={isRunning} taskIsSet={taskIsSet}/>
+    </div>
   );
 }
