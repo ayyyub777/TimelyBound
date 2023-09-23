@@ -1,4 +1,8 @@
-export default function History({storageData}) {
+import { useContext } from "react";
+import { TimerContext } from "./contexts/TimerContext";
+
+export default function History() {
+  const {storageData} = useContext(TimerContext);
   return (
      <table>
         <thead>

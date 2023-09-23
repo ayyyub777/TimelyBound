@@ -1,10 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import TaskForm from "./components/TaskForm";
 import TimeDisplay from "./components/TimeDisplay";
 import ToggleButton from "./components/ToggleButton";
+import { TimerContext } from "./contexts/TimerContext";
 
-export default function Timer({storageData, setStorageData}) {
+export default function Timer() {
+  const {storageData, setStorageData} = useContext(TimerContext);
+  
   const [time, setTime] = useState({ min: 0, sec: 0 });
   const [isRunning, setIsRunning] = useState(false);
   const [task, setTask] = useState({activity : "", duration : 0, timeLeft : 0});
