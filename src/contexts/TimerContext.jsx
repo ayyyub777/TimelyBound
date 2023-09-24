@@ -8,28 +8,25 @@ const TimerProvider = ({ children }) => {
   );
   const [time, setTime] = useState({ min: 0, sec: 0 });
   const [isRunning, setIsRunning] = useState(false);
-  const [task, setTask] = useState({activity : "", duration : 0});
+  const [task, setTask] = useState({ activity: "", duration: 0 });
   const intervalId = useRef();
   const taskIsSet = task.activity !== "" && task.duration > 0;
-
 
   useEffect(() => {
     return () => {
       clearInterval(intervalId.current);
     };
-
   }, []);
 
   const trackTimer = () => {
     if (time.sec === 0 && time.min === 0) {
       console.log("beep beep beep!!!");
-    } 
-    else if(taskIsSet && task.duration === time.min){
+    } else if (taskIsSet && task.duration === time.min) {
       var updatedStorageData = [...storageData, task];
       localStorage.setItem("tasks", JSON.stringify(updatedStorageData));
       setStorageData(updatedStorageData);
     }
-  }
+  };
 
   const handleTime = (shouldStart) => {
     if (shouldStart && taskIsSet) {
@@ -60,7 +57,6 @@ const TimerProvider = ({ children }) => {
     });
   };
 
-
   const handleForm = (e) => {
     const { name, value } = e.target;
     if (name === "activity") {
@@ -77,8 +73,16 @@ const TimerProvider = ({ children }) => {
       value={{
         storageData,
         setStorageData,
-        time,setTime,isRunning,setIsRunning,task,setTask,intervalId,taskIsSet,
-        handleTime,handleForm
+        time,
+        setTime,
+        isRunning,
+        setIsRunning,
+        task,
+        setTask,
+        intervalId,
+        taskIsSet,
+        handleTime,
+        handleForm,
       }}
     >
       {children}
