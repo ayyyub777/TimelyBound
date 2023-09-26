@@ -15,7 +15,7 @@ export default {
           label: "#8D8D99",
           placeholder: "#7C7C8A",
           divider: "#323238",
-          element: "#202024",
+          element: "#29292E",
           background: "#121214",
         },
         brand: {

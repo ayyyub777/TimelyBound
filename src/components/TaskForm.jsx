@@ -4,7 +4,7 @@ import { TimerContext } from "../contexts/TimerContext";
 export default function TaskForm() {
   const { handleForm, isRunning, task } = useContext(TimerContext);
   return (
-    <div className="text-center font-bold">
+    <div className="font-bold flex justify-between gap-2">
       <span className="text-lg">I will work on</span>
       <input
         name="activity"
@@ -14,7 +14,7 @@ export default function TaskForm() {
         placeholder="Give your project a name"
         onChange={handleForm}
         disabled={isRunning}
-        className="bg-transparent border-b-2 px-2 py-1 mx-2 text-lg placeholder-gray-placeholder border-gray-placeholder focus:text-gray-title focus:border-gray-title focus:outline-none w-64"
+        className="flex-1 bg-transparent border-b-2 px-2 py-1 text-lg placeholder-gray-placeholder border-gray-placeholder focus:text-gray-title focus:border-gray-title focus:outline-none w-64"
       />
       <datalist id="tasks">
         <option>Work on LeetCode problems</option>
@@ -28,7 +28,7 @@ export default function TaskForm() {
         min={0}
         onChange={handleForm}
         disabled={isRunning}
-        className="bg-transparent border-b-2 px-2 py-1 mx-2 text-lg placeholder-gray-placeholder border-gray-placeholder focus:text-gray-title focus:border-gray-title focus:outline-none w-16"
+        className="bg-transparent border-b-2 px-2 py-1 text-lg placeholder-gray-placeholder border-gray-placeholder focus:text-gray-title focus:border-gray-title focus:outline-none w-16"
       />
       <span className="text-lg"> minutes.</span>
     </div>
