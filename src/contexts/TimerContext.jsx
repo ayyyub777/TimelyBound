@@ -61,7 +61,7 @@ const TimerProvider = ({ children }) => {
     const { name, value } = e.target;
     if (name === "activity") {
       setTask({ ...task, activity: value });
-    } else if (name === "duration") {
+    } else if (name === "duration" && value) {
       const duration = parseInt(value);
       setTime({ min: duration, sec: 0 });
       setTask({ ...task, duration });

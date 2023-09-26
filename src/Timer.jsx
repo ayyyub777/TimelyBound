@@ -4,7 +4,7 @@ import ToggleButton from "./components/ToggleButton";
 
 export default function Timer() {
   return (
-    <div>
+    <div className="max-w-[41rem] mx-auto mt-10">
       <TaskForm />
       <TimeDisplay />
       <ToggleButton />
