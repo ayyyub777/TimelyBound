@@ -38,9 +38,9 @@ export default function NavBar() {
               viewBox="0 0 23 26"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className={`${
+              className={`h-full m-auto ${
                 isActive ? "fill-brand-principal" : "fill-gray-title"
-              } h-full m-auto`}
+              }`}
             >
               <path
                 fillRule="evenodd"
@@ -58,9 +58,9 @@ export default function NavBar() {
               viewBox="0 0 24 22"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className={`${
+              className={`h-full m-auto ${
                 isActive ? "fill-brand-principal" : "fill-gray-title"
-              } h-full m-auto`}
+              }`}
             >
               <path
                 fillRule="evenodd"

@@ -18,6 +18,7 @@ export default {
           element: "#29292E",
           background: "#121214",
         },
+        red: "#AB222E",
         brand: {
           light: "#00B37E",
           principal: "#00875F",
