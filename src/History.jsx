@@ -1,8 +1,20 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TimerContext } from "./contexts/TimerContext";
+import { formatDateAgo } from "./utils/formatDateAgo";
 
 export default function History() {
   const { storageData } = useContext(TimerContext);
+
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date());
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <main className="max-w-[58rem] mx-auto mt-3 mb-10">
       <h1 className="font-bold text-2xl mb-9">My history</h1>
@@ -23,7 +35,7 @@ export default function History() {
           </thead>
           <tbody className="text-gray-text">
             {storageData.map((item) => {
-              const { activity, duration } = item;
+              const { activity, duration, date } = item;
               return (
                 <tr
                   scope="row"
@@ -32,7 +44,7 @@ export default function History() {
                 >
                   <td className="px-6 py-4">{activity}</td>
                   <td className="px-6 py-4">{duration} minutes</td>
-                  <td className="px-6 py-4">Created 2 days ago</td>
+                  <td className="px-6 py-4">{formatDateAgo(new Date(date))}</td>
                 </tr>
               );
             })}

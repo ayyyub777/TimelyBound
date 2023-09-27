@@ -8,7 +8,7 @@ const TimerProvider = ({ children }) => {
   );
   const [time, setTime] = useState({ min: 0, sec: 0 });
   const [isRunning, setIsRunning] = useState(false);
-  const [task, setTask] = useState({ activity: "", duration: 0 });
+  const [task, setTask] = useState({ activity: "", duration: 0, date: 0 });
   const intervalId = useRef();
   const taskIsSet = task.activity !== "" && task.duration > 0;
 
@@ -22,7 +22,8 @@ const TimerProvider = ({ children }) => {
     if (time.sec === 0 && time.min === 0) {
       console.log("beep beep beep!!!");
     } else if (taskIsSet && task.duration === time.min) {
-      var updatedStorageData = [...storageData, task];
+      const currentDate = new Date();
+      var updatedStorageData = [...storageData, { ...task, date: currentDate }];
       localStorage.setItem("tasks", JSON.stringify(updatedStorageData));
       setStorageData(updatedStorageData);
     }
