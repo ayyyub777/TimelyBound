@@ -6,7 +6,7 @@ export default function History() {
   return (
     <main className="max-w-[58rem] mx-auto mt-3 mb-10">
       <h1 className="font-bold text-2xl mb-9">My history</h1>
-      <div className="overflow-x-auto rounded-t-lg">
+      <div className="overflow-x-auto rounded-t-lg h-[26rem] overflow-scroll">
         <table className="w-full text-sm leading-6 text-left">
           <thead>
             <tr className="font-bold bg-gray-divider">
