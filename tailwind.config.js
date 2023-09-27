@@ -17,6 +17,7 @@ export default {
           divider: "#323238",
           element: "#29292E",
           background: "#121214",
+          dark: "#09090A",
         },
         red: "#AB222E",
         brand: {
